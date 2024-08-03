@@ -44,7 +44,7 @@ const main = async () =>{
                         score: '',
                         txt: faker.lorem.sentence(),
                         user_id: user1.id,
-                        item_id: item.id,
+                        item_id: items.id,
                     }
                 })
             })
