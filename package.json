@@ -1,0 +1,19 @@
+{
+  "name": "unit4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "seed": "node prisma/seed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.17.0",
+    "prisma": "^5.17.0"
+  },
+  "description": "",
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1"
+  }
+}
