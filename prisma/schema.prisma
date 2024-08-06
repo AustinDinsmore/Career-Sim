@@ -21,6 +21,13 @@ model users {
   comments comments[]
 }
 
+model items {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  reviews     reviews[]
+}
+
 model reviews {
   id       String     @id @default(uuid())
   score    Float
@@ -39,11 +46,4 @@ model comments {
   author    users   @relation(fields: [author_id], references: [id])
   review_id String
   review    reviews @relation(fields: [review_id], references: [id])
-}
-
-model items {
-  id          String    @id @default(uuid())
-  name        String
-  description String
-  reviews     reviews[]
 }
