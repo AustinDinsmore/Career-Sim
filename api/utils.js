@@ -5,12 +5,12 @@ function requireUser(req, res, next) {
     next();
 }
 
-function checkItemData(req, res, next) {
-    const {name, description} = req.body;
-    if(!name || !description) {
-        return res.status(404).send("Please provide name and a description");
+function checkReviewData(req, res, next) {
+    const {score, txt} = req.body;
+    if(!score || !txt) {
+        return res.status(404).send("Please provide a rating and some text");
     }
     next();
 }
 
-module.exports = {requireUser, checkItemData}
+module.exports = {requireUser, checkReviewData}
