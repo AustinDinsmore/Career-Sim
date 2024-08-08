@@ -12,5 +12,11 @@ const findUserbyUsername = (username) => {
     })
 };
 
+const findUserbyId = (id) => {
+    return prisma.users.findUnique({
+        where: {id}
+    })
+}
 
-module.exports = {createUser, findUserbyUsername};
+
+module.exports = {createUser, findUserbyUsername, findUserbyId};

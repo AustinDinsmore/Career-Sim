@@ -7,5 +7,4 @@ router.use("/auth", authRouter);
 const itemRouter = require("../api/items");
 router.use("/items", itemRouter);
 
-
 module.exports = router;
