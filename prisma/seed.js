@@ -69,4 +69,4 @@ main().then(async () =>{
     .catch(async(err) => {
         console.log(`ERROR ${err}`);
         await prisma.$disconnect();
-    })
+    });

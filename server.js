@@ -8,6 +8,7 @@ server.get('/', (req, res) => {
     res.send({message: "Working"});
 });
 
-server.use("/routes", require("./routes/index"));
+
+server.use("/routes", require("./routes"));
 
 module.exports = server;

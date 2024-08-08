@@ -22,7 +22,7 @@ authRouter.post("/register", checkUserData, checkUser, async (req, res) => {
     }
 });
 
-authRouter.post("/login", findUserbyUsername, async(req, res) => {
+authRouter.post("/login", async(req, res) => {
     try {
         const user = await findUserbyUsername(req.body.username);
         
@@ -36,11 +36,11 @@ authRouter.post("/login", findUserbyUsername, async(req, res) => {
         };
 
         const token = jwt.sign(
-            {id: user.id},
+            {id: user.user_id},
             process.env.JWT || "super secret"
         );
 
-        res.status(201).send({token});
+        res.send({token});
     } catch (error) {
         console.log(error);
         res.status(500).send({error, message: "Could not login user"});
