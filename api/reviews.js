@@ -74,7 +74,7 @@ reviewRouter.delete("/:id", async (req, res) => {
 });
 
 //Get average score of an item
-reviewRouter.get("/", async (req, res) => {
+reviewRouter.get("/:item_id", async (req, res) => {
     try {
         const averageScore = await getAverageScore(req.item_id);
         res.send({averageScore});

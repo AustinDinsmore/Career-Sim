@@ -40,7 +40,7 @@ authRouter.post("/login", async(req, res) => {
             process.env.JWT || "super secret"
         );
 
-        res.send({token});
+        res.status(200).send({token});
     } catch (error) {
         console.log(error);
         res.status(500).send({error, message: "Could not login user"});
