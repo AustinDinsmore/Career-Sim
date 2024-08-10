@@ -1,16 +1,27 @@
 const express = require("express");
 const reviewRouter = express.Router();
-const {createReview, getAllReviews, getReviewById, updateReview, deleteReview} = require("../db/reviews");
+const {createReview, getAllUserReviews, getAllItemReviews, getReviewById, updateReview, deleteReview, getAverageScore} = require("../db/reviews");
 const {checkReviewData} = require("./utils");
 
-//Get all reviews 
-reviewRouter.get("/", async (req, res) => {
+//Get all user reviews 
+reviewRouter.get("/:user_id", async (req, res) => {
     try {
-        const reviews = await getAllReviews(req.user_id);
+        const reviews = await getAllUserReviews(req.user_id);
         res.send({reviews});
     } catch (error) {
         console.log(error);
-        res.status(404).send({message: "Unable to find any reviews"});
+        res.status(404).send({message: "Unable to find your reviews, please try again"});
+    }
+});
+
+//Get all item reviews
+reviewRouter.get("/:item_id", async (req, res) => {
+    try {
+        const itemReviews =await getAllItemReviews(req.item_id);
+        res.send({itemReviews});
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({message: "Unable to find any reviews for this item, please try again"})
     }
 });
 
@@ -60,6 +71,17 @@ reviewRouter.delete("/:id", async (req, res) => {
     console.log(error);
     res.status(404).send({message: "Unable to delete review, please try again"});
    }
+});
+
+//Get average score of an item
+reviewRouter.get("/", async (req, res) => {
+    try {
+        const averageScore = await getAverageScore(req.item_id);
+        res.send({averageScore});
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({message: "Unable to get average reviews, please try again"});
+    }
 });
 
 module.exports = reviewRouter;

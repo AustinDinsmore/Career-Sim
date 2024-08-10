@@ -6,12 +6,18 @@ const createReview = (reviewsData) => {
     });
 };
 
-const getAllReviews = (user_id) => {
+const getAllUserReviews = (user_id) => {
     return prisma.reviews.findMany({
         where: {user_id},
         include: {
             item: true
         }
+    });
+};
+
+const getAllItemReviews = (item_id) => {
+    return prisma.reviews.findMany({
+        where: {item_id},
     });
 };
 
@@ -21,8 +27,8 @@ const getReviewById = (id) => {
         include: {
             item: true
         }
-    })
-}
+    });
+};
 
 const updateReview = (id, reviewsData) => {
     return prisma.reviews.update({
@@ -41,4 +47,12 @@ const deleteReview = async (id) => {
     return;
 };
 
-module.exports = {createReview, getAllReviews, getReviewById, updateReview, deleteReview};
+const getAverageScore = async (item_id) => {
+    const reviewsByItem = await prisma.reviews.groupBy({
+        by: {item_id: true},
+        _avg: {score: true},
+    });
+    return (reviewsByItem);
+};
+
+module.exports = {createReview, getAllUserReviews, getAllItemReviews, getReviewById, updateReview, deleteReview, getAverageScore};
