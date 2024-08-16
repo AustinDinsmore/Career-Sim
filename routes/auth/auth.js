@@ -32,11 +32,11 @@ authRouter.post("/login", async(req, res) => {
         );
         
         if (!user || !isSamePassword) {
-            return res.status(401).send("Invalid login credentials");
+            return res.status(404).send("Invalid login credentials");
         };
 
         const token = jwt.sign(
-            {id: user.user_id},
+            {id: user.id},
             process.env.JWT || "super secret"
         );
 

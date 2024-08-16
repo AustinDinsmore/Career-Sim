@@ -9,6 +9,8 @@ server.get('/', (req, res) => {
 });
 
 
-server.use("/routes", require("./routes"));
+server.use("/auth", require("./routes"));
+
+server.use("/api", require("./api"));
 
 module.exports = server;

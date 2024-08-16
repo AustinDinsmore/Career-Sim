@@ -3,10 +3,10 @@ const reviewRouter = express.Router();
 const {createReview, getAllUserReviews, getAllItemReviews, getReviewById, updateReview, deleteReview, getAverageScore} = require("../db/reviews");
 const {checkReviewData} = require("./utils");
 
-//Get all user reviews 
+//Get all user reviews /api/review/:user_id
 reviewRouter.get("/:user_id", async (req, res) => {
     try {
-        const reviews = await getAllUserReviews(req.user_id);
+        const reviews = await getAllUserReviews(req.params.user_id);
         res.send({reviews});
     } catch (error) {
         console.log(error);
@@ -17,7 +17,7 @@ reviewRouter.get("/:user_id", async (req, res) => {
 //Get all item reviews
 reviewRouter.get("/:item_id", async (req, res) => {
     try {
-        const itemReviews =await getAllItemReviews(req.item_id);
+        const itemReviews =await getAllItemReviews(req.params.item_id);
         res.send({itemReviews});
     } catch (error) {
         console.log(error);
@@ -37,9 +37,9 @@ reviewRouter.get("/:id", async (req, res) => {
 });
 
 //Create new review
-reviewRouter.post("/", checkReviewData, async(req,res) => {
+reviewRouter.post("/:item_id", checkReviewData, async (req,res) => {
     try {
-        const review = await createReview({...req.body, user_id: req.user_id});
+        const review = await createReview({...req.body, item_id: req.item_id});
         res.send({review});
     } catch (error) {
         console.log(error);
@@ -51,7 +51,7 @@ reviewRouter.post("/", checkReviewData, async(req,res) => {
 reviewRouter.put("/:id", async(req, res) => {
     try {
         const {score, txt} = req.body;
-        const review = await updateReview(parseInt(req.params.id), {
+        const review = await updateReview(parseFloat(req.params.id), {
             score,
             txt,
         });
@@ -65,7 +65,7 @@ reviewRouter.put("/:id", async(req, res) => {
 //Delete review
 reviewRouter.delete("/:id", async (req, res) => {
    try{
-    const review = await deleteReview(parseInt(req.params.id));
+    const review = await deleteReview(req.params.id);
     res.send({review});
    } catch (error) {
     console.log(error);

@@ -3,7 +3,7 @@ const server = require('../../../server');
 const prisma = require('../../../db/index');
 const bcrypt = require("bcrypt");
 
-describe('/routes/auth', () => {
+describe('/auth/auth', () => {
 
     describe("POST /register", () => {
         beforeEach(() => {
@@ -19,16 +19,16 @@ describe('/routes/auth', () => {
         });
 
         test("returns 201 status code when successful", async () => {
-            const res = await supertest(server).post("/routes/auth/register").send({
-                username: "test1",
-                password: "somePass",
+            const res = await supertest(server).post("/auth/auth/register").send({
+                username: "test3",
+                password: "hashPass",
             });
             
             expect(res.status).toBe(201);
         });
 
         test("returns a token when  successful", async () => {
-            const res = await supertest(server).post("/routes/auth/register").send({
+            const res = await supertest(server).post("/auth/auth/register").send({
                 username: "test2",
                 password: "somePass",
             });
@@ -51,7 +51,7 @@ describe('/routes/auth', () => {
 
             bcrypt.compare = jest.fn().mockResolvedValue(true);
 
-            const res = await supertest(server).post("/routes/auth/login").send({
+            const res = await supertest(server).post("/auth/auth/login").send({
                 username: "test",
                 password: "hashPass",
             });
@@ -68,7 +68,7 @@ describe('/routes/auth', () => {
 
             bcrypt.compare = jest.fn().mockResolvedValue(true);
 
-            const res = await supertest(server).post("/routes/auth/login").send({
+            const res = await supertest(server).post("/auth/auth/login").send({
                 username: "test",
                 password: "hashPass",
             });
@@ -85,12 +85,12 @@ describe('/routes/auth', () => {
     
             bcrypt.compare = jest.fn().mockResolvedValue(false);
     
-            const res = await supertest(server).post("/routes/auth/login").send({
+            const res = await supertest(server).post("/auth/auth/login").send({
               username: "test",
               password: "pass123",
             });
     
-            expect(res.status).toBe(401);
+            expect(res.status).toBe(404);
         });
 
         test("returns error message when NOT successful", async () => {
@@ -102,7 +102,7 @@ describe('/routes/auth', () => {
     
             bcrypt.compare = jest.fn().mockResolvedValue(false);
     
-            const res = await supertest(server).post("/routes/auth/login").send({
+            const res = await supertest(server).post("/auth/auth/login").send({
               username: "test",
               password: "pass123",
             });

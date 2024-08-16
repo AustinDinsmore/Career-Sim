@@ -1,8 +1,8 @@
 const prisma = require("./index");
 
-const createReview = (reviewsData) => {
+const createReview = (reviewData) => {
     return prisma.reviews.create({
-        data: reviewsData,
+        data: reviewData,
     });
 };
 
@@ -16,8 +16,12 @@ const getAllUserReviews = (user_id) => {
 };
 
 const getAllItemReviews = (item_id) => {
-    return prisma.reviews.findMany({
+    return prisma.reviews.findUnique({
         where: {item_id},
+        include: {
+            item: true,
+            user: true
+        }
     });
 };
 

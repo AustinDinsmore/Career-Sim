@@ -1,12 +1,12 @@
 const express = require("express");
+const router = express.Router();
 const authRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const {findUserbyId} = require("../db/users");
 const {requireUser} = require ("./utils");
-const { name } = require("../server");
 
 authRouter.use(async (req, res, next) => {
-    const prefix = "Bearer";
+    const prefix = "Bearer ";
     const auth = req.header("Authorization");
 
     if (!auth) {
@@ -42,4 +42,7 @@ router.use("/review", reviewRouter);
 const commentRouter = require("./comments");
 router.use("/comment", commentRouter);
 
-module.exports = reviewRouter, commentRouter;
+const itemRouter = require("./items");
+router.use("/items", itemRouter);
+
+module.exports = router;
