@@ -23,7 +23,7 @@ const main = async () =>{
     const [item1, item2, item3] = await Promise.all(
             [...Array(5)].map(() => prisma.items.create({
                     data: {
-                        img_url: faker.image.urlLoremFlickr({category: 'restraunt'}),
+                        img_url: faker.image.urlLoremFlickr({category: 'business'}),
                         name: faker.company.name(),
                         description: faker.lorem.sentences({min: 1, max: 3}),
                     }
