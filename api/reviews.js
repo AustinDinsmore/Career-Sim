@@ -39,7 +39,7 @@ reviewRouter.get("/:id", async (req, res) => {
 //Create new review
 reviewRouter.post("/:item_id", checkReviewData, async (req,res) => {
     try {
-        const review = await createReview({...req.body, item_id: req.item_id});
+        const review = await createReview({...req.body, user_id: req.user_id, item_id: req.item_id});
         res.send({review});
     } catch (error) {
         console.log(error);

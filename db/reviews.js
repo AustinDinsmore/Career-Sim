@@ -1,8 +1,8 @@
 const prisma = require("./index");
 
-const createReview = (reviewData) => {
+const createReview = (reviewsData) => {
     return prisma.reviews.create({
-        data: reviewData,
+        data: reviewsData,
     });
 };
 
