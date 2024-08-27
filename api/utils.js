@@ -5,6 +5,13 @@ function requireUser(req, res, next) {
     next();
 }
 
+function verifyUser(req, res,next){
+    if (!req.user || !token) {
+        return res.status(401).send("You must be logged in to do that");
+    }
+    next();
+}
+
 function checkReviewData(req, res, next) {
     const {score, txt} = req.body;
     if(!score || !txt) {
@@ -13,4 +20,4 @@ function checkReviewData(req, res, next) {
     next();
 }
 
-module.exports = {requireUser, checkReviewData}
+module.exports = {requireUser, checkReviewData, verifyUser}

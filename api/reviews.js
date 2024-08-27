@@ -1,7 +1,7 @@
 const express = require("express");
 const reviewRouter = express.Router();
 const {createReview, getAllUserReviews, getAllItemReviews, getReviewById, updateReview, deleteReview, getAverageScore} = require("../db/reviews");
-const {checkReviewData} = require("./utils");
+const {checkReviewData, verifyUser} = require("./utils");
 
 //Get all user reviews /api/review/:user_id
 reviewRouter.get("/:user_id", async (req, res) => {
@@ -15,7 +15,7 @@ reviewRouter.get("/:user_id", async (req, res) => {
 });
 
 //Get all item reviews
-reviewRouter.get("/:item_id", async (req, res) => {
+reviewRouter.get("/:id/reviews", async (req, res) => {
     try {
         const itemReviews =await getAllItemReviews(req.params.item_id);
         res.send({itemReviews});
@@ -37,9 +37,12 @@ reviewRouter.get("/:id", async (req, res) => {
 });
 
 //Create new review
-reviewRouter.post("/:item_id", checkReviewData, async (req,res) => {
+reviewRouter.post("/:id", verifyUser, checkReviewData, async (req,res) => {
     try {
-        const review = await createReview({...req.body, user_id: req.user_id, item_id: req.item_id});
+        const review = await createReview({
+            ...req.body,
+            item_id: req.params.id
+        });
         res.send({review});
     } catch (error) {
         console.log(error);

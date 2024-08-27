@@ -16,12 +16,8 @@ const getAllUserReviews = (user_id) => {
 };
 
 const getAllItemReviews = (item_id) => {
-    return prisma.reviews.findUnique({
+    return prisma.reviews.findMany({
         where: {item_id},
-        include: {
-            item: true,
-            user: true
-        }
     });
 };
 
