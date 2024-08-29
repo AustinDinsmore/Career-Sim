@@ -18,7 +18,9 @@ const findItembyId =(id) =>{
     return prisma.items.findUnique({
         where: {id},
         include: {
-            reviews: true
+            reviews: {
+                include: {comments: true}
+            }
         }
     })
 };

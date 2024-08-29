@@ -3,7 +3,7 @@ const router = express.Router();
 const authRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const {findUserbyId} = require("../db/users");
-const {requireUser} = require ("./utils");
+const {requireUser, verifyUser} = require ("./utils");
 
 authRouter.use(async (req, res, next) => {
     const prefix = "Bearer ";
@@ -40,7 +40,7 @@ const reviewRouter = require("./reviews");
 router.use("/review", reviewRouter);
 
 const commentRouter = require("./comments");
-router.use("/comment", commentRouter);
+router.use("/comment",commentRouter);
 
 const itemRouter = require("./items");
 router.use("/items", itemRouter);

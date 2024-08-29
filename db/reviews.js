@@ -21,6 +21,13 @@ const getAllItemReviews = (item_id) => {
     });
 };
 
+const updateReview = (id, reviewsData) => {
+
+    return prisma.reviews.update({
+        where: {id},
+        data: reviewsData,
+    });
+};
 const getReviewById = (id) => {
     return prisma.reviews.findUnique({
         where: {id},
@@ -29,14 +36,6 @@ const getReviewById = (id) => {
         }
     });
 };
-
-const updateReview = (id, reviewsData) => {
-    return prisma.reviews.update({
-        where: {id},
-        data: reviewsData,
-    });
-};
-
 const deleteReview = async (id) => {
     const review = await getReviewById(id);
     if (review) {
@@ -55,4 +54,4 @@ const getAverageScore = async (item_id) => {
     return (reviewsByItem);
 };
 
-module.exports = {createReview, getAllUserReviews, getAllItemReviews, getReviewById, updateReview, deleteReview, getAverageScore};
+module.exports = {createReview, getAllUserReviews, getAllItemReviews, updateReview, deleteReview, getAverageScore};
