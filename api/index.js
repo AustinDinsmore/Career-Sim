@@ -40,7 +40,7 @@ const reviewRouter = require("./reviews");
 router.use("/review", reviewRouter);
 
 const commentRouter = require("./comments");
-router.use("/comment",commentRouter);
+router.use("/comment",verifyUser, commentRouter);
 
 const itemRouter = require("./items");
 router.use("/items", itemRouter);
