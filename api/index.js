@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const {findUserbyId} = require("../db/users");
 const {requireUser, verifyUser} = require ("./utils");
 
-authRouter.use(async (req, res, next) => {
+router.use(async (req, res, next) => {
     const prefix = "Bearer ";
     const auth = req.header("Authorization");
 

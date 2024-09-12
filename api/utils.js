@@ -6,7 +6,7 @@ function requireUser(req, res, next) {
 }
 
 function verifyUser(req, res,next){
-    if (!req.user || !token) {
+    if (!req.user) {
         return res.status(401).send("You must be logged in to do that");
     }
     next();
