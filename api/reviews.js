@@ -41,6 +41,7 @@ reviewRouter.post("/:id", verifyUser, checkReviewData, async (req,res) => {
     try {
         const review = await createReview({
             ...req.body,
+            score: parseFloat(req.body.score),
             item_id: req.params.id,
             user_id: req.user.id,
         });
