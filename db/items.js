@@ -9,7 +9,9 @@ const createItem = (itemData) => {
 const findAllItems = () => {
     return prisma.items.findMany({
         include: {
-            reviews: true
+            reviews: {
+                include: {comments: true}
+            }
         }
     })
 };
