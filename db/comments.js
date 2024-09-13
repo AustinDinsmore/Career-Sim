@@ -1,6 +1,7 @@
 const prisma = require("./index");
 
 const createComment = (commentsData) => {
+    console.log(commentsData)
     return prisma.comments.create({
         data: commentsData,
     });
