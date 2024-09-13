@@ -19,7 +19,8 @@ commentRouter.post("/:id", async (req, res) => {
     try {
         const comment = await createComment({
             ...req.body,
-            review_id: req.params.id
+            review_id: req.params.id,
+            author_id: req.user.id,
         });
         res.send({comment});
     } catch (error) {
