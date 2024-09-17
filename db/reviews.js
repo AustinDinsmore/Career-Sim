@@ -22,7 +22,7 @@ const getAllItemReviews = (item_id) => {
 };
 
 const updateReview = (id, reviewsData) => {
-
+    
     return prisma.reviews.update({
         where: {id},
         data: reviewsData,
@@ -40,7 +40,7 @@ const deleteReview = async (id) => {
     const review = await getReviewById(id);
     if (review) {
         return prisma.reviews.delete({
-            where: id, 
+            where: {id}, 
         });
     }
     return;
