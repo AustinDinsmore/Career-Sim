@@ -28,7 +28,7 @@ const deleteComment = async (id) => {
     const comment = await getCommentById(id);
     if (comment) {
         return prisma.comments.delete({
-            where: id,
+            where: {id},
         })
     }
 }
