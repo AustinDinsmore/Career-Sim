@@ -1,13 +1,13 @@
 const express = require("express");
 const reviewRouter = express.Router();
-const {createReview, getAllUserReviews, getAllItemReviews, updateReview, deleteReview, getAverageScore} = require("../db/reviews");
+const {createReview, getAllUserReviews, getReviewById, getAllItemReviews, updateReview, deleteReview, getAverageScore} = require("../db/reviews");
 const {checkReviewData, verifyUser} = require("./utils");
 
 //Get all user reviews /api/review/:user_id
 reviewRouter.get("/:user_id", async (req, res) => {
     try {
-        const reviews = await getAllUserReviews(req.params.user_id);
-        res.send({reviews});
+        const userReviews = await getAllUserReviews(req.params.user_id);
+        res.send({userReviews});
     } catch (error) {
         console.log(error);
         res.status(404).send({message: "Unable to find your reviews, please try again"});
@@ -26,9 +26,9 @@ reviewRouter.get("/:id/reviews", async (req, res) => {
 });
 
 //Get review by id
-reviewRouter.get("/:reviews_id", async (req, res) => {
+reviewRouter.get("/detail/:id", async (req, res) => {
     try {
-        const review = await getReviewById(req.params.reviews.id);
+        const review = await getReviewById(req.params.id);
         res.send({review});
     } catch (error) {
         console.log(error);

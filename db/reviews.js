@@ -54,4 +54,4 @@ const getAverageScore = async (item_id) => {
     return (reviewsByItem);
 };
 
-module.exports = {createReview, getAllUserReviews, getAllItemReviews, updateReview, deleteReview, getAverageScore};
+module.exports = {createReview, getReviewById, getAllUserReviews, getAllItemReviews, updateReview, deleteReview, getAverageScore};
